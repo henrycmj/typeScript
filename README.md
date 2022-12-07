@@ -54,35 +54,41 @@
   ## DOM interaction & Typecasting
   - When collecting elements of html, Typescript usually identifies them as elements. This could lead to errors, but to over come these errors, typescript does know these elements and can be served or called in a way they originally are. E.G (notice the ending of the function)
   1. `const form = document.querySelector('.new-item-form') as HTMLFormElement;` I `console.log(form.children);` 
-  2. `const anchor = document.querySelector('a');` I `console.log(anchor?.href);` 
+  2. `const anchor = document.querySelector('a');` I `console.log(anchor?.href);`
 
+  ## Access Modifies
+  1. Read only - The read only access modify only allows the variables to be read only and be access outside a class.
+  2. Public - A public variable, like the name suggests, can be accessed everywhere outside the class and modified. 
+  3. Private - A variable of private can 'only' be accessed inside the class its initiated and not outside. It can not be modified
 
-  type StrOrNum = string | number;
+  ## Modules
+  - This helps seperate and generate fileswhen compilling. The Javascript reference in the html file, needs to be of type module. And in the tsconfig file, the module should be of es2022(depending with the leatest version) and target should be es6.
 
-let a: string;
-let b: number;
-let c: boolean;
-let d: string[]=[];
-let e: (string|number|boolean)[]=[]
-let f: object;
-f: [] /* the f object can be called an array */
-f: {} /* explicit calling f as an object */
-let g: any /* can be of any type */
-let h: any[] = []
+  ## Interfaces
+  1. An interface allows us to inforce a certain structure of an class or an object. Think of it as bluebrint for classes and objects. Its never used to generate objects,classes, variables or parameters. But only to structure them.
 
-let person: string;
-person = 'Henry Matola'
-console.log(person)
+  ## Interfaces with Classes
+  When a class is declared and needs to be structured with an interface, we use the key word 'implements'. EG
+  export class Person implements personDetails {}
 
-// function
-let greet : Function;
-greet = () => {
-    console.log('hello')
-}
-// 
-let add : Function
-add = (a:number, b:number, c:(StrOrNum) = 21) => {
-    console.log( a + b )
-    console.log( c );
-}
-add(10, 10, 10)
+  ## Rendering an HTML template
+  TypeScript does follow the DOM manipulations for HTML and can output them.
+
+  ## Generics
+  Generics capture items that passed in to the function, and what properties are on it, if its an object. For example
+  1. const addUID = <T extends object>(obj: T) => {}
+  - The generic is T, and it captures the object and identifies the object properties only. So only objects are passed in.
+  2. interface Resource <T> {data: T}
+  - This implies that the interface will structure whatever type of input to the data as string, number, or object 
+  - const doc: Resource<string> = {data: 'henry'} => from the previous interface, the doc will be of type resource and only brings in a string element to the data variable
+  - const doc2: Resource<string[]> = {} => This function brings in an array of strings inside the function
+
+  ## Enums
+  - If you have data that has numbers that each represent a certain set on data, enum(data type) is used to represent predefined constraints. For example a country to reprsent a number, an author to represent a book, a letter to present a grade. (Only numbers)
+  - enum Resourcetype { BOOK, AUTHOR, FILM, DIRECTOR, PERSON} 
+  - const docThree: Resource<object> = {resourceType: Resourcetype.BOOK}
+  - BOOK represents index of 0.
+
+  ## Tuples
+  - A tuple is an array that explicitly defines each postion in an array as a string, number, or boolean.
+  - let tup: [string, number, boolean, number] = [] => Each position in this should be according to the data type.
